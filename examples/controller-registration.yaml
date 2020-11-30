@@ -17,6 +17,8 @@ spec:
     type: openstack-designate
   - kind: DNSProvider
     type: cloudflare-dns
+  - kind: DNSProvider
+    type: digitalocean-dns
   deployment:
     type: helm
     providerConfig:

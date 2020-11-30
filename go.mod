@@ -10,6 +10,7 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v0.0.0-20190603021944-12ad9f921c0b
 	github.com/aws/aws-sdk-go v1.19.41
 	github.com/cloudflare/cloudflare-go v0.11.4
+	github.com/digitalocean/godo v1.54.0
 	github.com/emicklei/go-restful v2.9.6+incompatible // indirect
 	github.com/gardener/controller-manager-library v0.2.1-0.20201009144316-bfa57b871e60
 	github.com/gophercloud/gophercloud v0.2.0
@@ -24,7 +25,7 @@ require (
 	github.com/prometheus/client_golang v1.0.0
 	go.uber.org/atomic v1.4.0
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b
-	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
+	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/api v0.4.0
 	k8s.io/api v0.18.6

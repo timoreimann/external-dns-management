@@ -1,0 +1,13 @@
+# For details see https://github.com/gardener/external-dns-management/blob/master/docs/digitalocean/README.md
+apiVersion: dns.gardener.cloud/v1alpha1
+kind: DNSProvider
+metadata:
+  name: digitalocean
+  namespace: default
+spec:
+  type: digitalocean-dns
+  secretRef:
+    name: digitalocean-credentials
+  domains:
+    include:
+    - my.own.domain.com
