@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/digitalocean/godo"
 	"k8s.io/client-go/util/flowcontrol"
@@ -155,9 +156,14 @@ func (cl *DNSClient) NewRecord(fqdn, rtype, value string, zone provider.DNSHoste
 }
 
 func createRecordRequest(r raw.Record) *godo.DomainRecordEditRequest {
+	dnsName := r.GetDNSName()
+	if !strings.HasSuffix(dnsName, ".") {
+		dnsName += "."
+	}
+
 	req := &godo.DomainRecordEditRequest{
 		Type: r.GetType(),
-		Name: r.GetDNSName(),
+		Name: dnsName,
 		Data: r.GetValue(),
 		TTL:  r.GetTTL(),
 	}
