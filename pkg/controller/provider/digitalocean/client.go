@@ -107,8 +107,10 @@ func (cl *DNSClient) CreateRecord(r raw.Record) error {
 	cl.metrics.AddRequests(provider.M_CREATERECORDS, 1)
 	cl.rateLimiter.Accept()
 
-	_, _, err := cl.svc.CreateRecord(context.Background(), r.(*Record).domain, req)
-	return err
+	if _, _, err := cl.svc.CreateRecord(context.Background(), r.(*Record).domain, req); err != nil {
+		return fmt.Errorf("failed to create record of type %q for DNS name %q and value %q: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
+	}
+	return nil
 }
 
 func (cl *DNSClient) UpdateRecord(r raw.Record) error {
@@ -122,8 +124,10 @@ func (cl *DNSClient) UpdateRecord(r raw.Record) error {
 	cl.metrics.AddRequests(provider.M_UPDATERECORDS, 1)
 	cl.rateLimiter.Accept()
 
-	_, _, err = cl.svc.EditRecord(context.Background(), r.(*Record).domain, id, req)
-	return err
+	if _, _, err = cl.svc.EditRecord(context.Background(), r.(*Record).domain, id, req); err != nil {
+		return fmt.Errorf("failed to update record of type %q for DNS name %q and value %q: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
+	}
+	return nil
 }
 
 func (cl *DNSClient) DeleteRecord(r raw.Record) error {
@@ -135,8 +139,10 @@ func (cl *DNSClient) DeleteRecord(r raw.Record) error {
 	cl.metrics.AddRequests(provider.M_DELETERECORDS, 1)
 	cl.rateLimiter.Accept()
 
-	_, err = cl.svc.DeleteRecord(context.Background(), r.(*Record).domain, id)
-	return err
+	if _, err = cl.svc.DeleteRecord(context.Background(), r.(*Record).domain, id); err != nil {
+		return fmt.Errorf("failed to delete record of type %q for DNS name %q and value %q: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
+	}
+	return nil
 }
 
 func (cl *DNSClient) NewRecord(fqdn, rtype, value string, zone provider.DNSHostedZone, ttl int64) raw.Record {
