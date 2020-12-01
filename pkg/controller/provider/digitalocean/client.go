@@ -108,7 +108,7 @@ func (cl *DNSClient) CreateRecord(r raw.Record) error {
 	cl.rateLimiter.Accept()
 
 	if _, _, err := cl.svc.CreateRecord(context.Background(), r.(*Record).domain, req); err != nil {
-		return fmt.Errorf("failed to create record of type %q for DNS name %q and value %q: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
+		return fmt.Errorf("failed to create record of type %q for DNS name %q and value %s: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
 	}
 	return nil
 }
@@ -125,7 +125,7 @@ func (cl *DNSClient) UpdateRecord(r raw.Record) error {
 	cl.rateLimiter.Accept()
 
 	if _, _, err = cl.svc.EditRecord(context.Background(), r.(*Record).domain, id, req); err != nil {
-		return fmt.Errorf("failed to update record of type %q for DNS name %q and value %q: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
+		return fmt.Errorf("failed to update record of type %q for DNS name %q and value %s: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
 	}
 	return nil
 }
@@ -140,7 +140,7 @@ func (cl *DNSClient) DeleteRecord(r raw.Record) error {
 	cl.rateLimiter.Accept()
 
 	if _, err = cl.svc.DeleteRecord(context.Background(), r.(*Record).domain, id); err != nil {
-		return fmt.Errorf("failed to delete record of type %q for DNS name %q and value %q: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
+		return fmt.Errorf("failed to delete record of type %q for DNS name %q and value %s: %s", r.GetType(), r.GetDNSName(), r.GetValue(), err)
 	}
 	return nil
 }
